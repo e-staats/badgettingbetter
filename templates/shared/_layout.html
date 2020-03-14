@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/site.css" />
+    {% block additional_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <p class="header">
+        <br>*   +  -  +   *
+        {% block additional_decoration_top %}{% endblock %}
+        <br>{% block page_title %}{% endblock %}
+        {% block additional_decoration_bottom %}{% endblock %}
+        <br>*   +  -  +   *
+    </p>
+    <nav>
+        <div class="navbar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/posts">Posts</a>
+        </div>
+    </nav>
+
+    <!-- <div class="logo-area">This is a logo area or something</div> -->
+
+    <!-- <audio src="static/mp3/SprainedAnkle.mp3" type="audio/mpeg" autoplay loop></audio>   -->
+
+    <div class="main_content">
+        {% block main_content %}
+        {% endblock %}
+    </div>
+</body>
+
+{% block additional_js %}
+{% endblock %}
+
+</html>

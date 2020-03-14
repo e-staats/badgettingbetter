@@ -1,0 +1,42 @@
+body {
+    font-family: "Courier New";
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #f9f1f1;
+}
+
+p.header {
+	white-space: pre-wrap;
+	text-align: center;
+}
+
+.navbar {
+	text-align: center;
+}
+
+.navbar a {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+p.readability {
+	font-family: "Arial Black", sans-serif;
+}
+
+a:link {
+	color: #0964f6;
+}
+
+a:visited {
+	color: #0964f6;
+  }
+
+.content-header {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.content-list-item {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
