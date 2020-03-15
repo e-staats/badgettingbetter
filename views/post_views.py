@@ -17,8 +17,7 @@ def post_home():
 
 # ################### POST PAGES #################################
 
-@blueprint.route('/posts/<post_id>')
-@response(template_file='posts/post.html')
-def post_page(post_id: str):
-
+@blueprint.route('/posts/struggles-with-python-path')
+@response(template_file='posts/struggles-with-python-path.html')
+def post_page():
     return {}

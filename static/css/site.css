@@ -1,7 +1,7 @@
 body {
     font-family: "Courier New";
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
     background-color: #f9f1f1;
 }
 
@@ -39,4 +39,17 @@ a:visited {
 .content-list-item {
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+.code {
+	white-space: pre-wrap;
+	background-color: #E0E0E0;
+	padding-bottom:12px;
+	vertical-align: middle;
+}
+
+footer {
+	height: 200px;
+	white-space: pre-wrap;
+	text-align: center;
 }
