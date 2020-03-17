@@ -1,21 +1,22 @@
 {% extends "/shared/_layout.html" %}
+{% block title %}Struggles With Python Path{% endblock %}
 {% block additional_decoration_top %}<br>-    +   - -   +    -{% endblock %}
 {% block page_title %}Struggles With Python Path{% endblock %}
 {% block additional_decoration_bottom %}<br>-    +   - -   +    -{% endblock %}
 
 {% block main_content %}
-<h3>Struggles with Python Paths</h3>
+<h3 class="post-title">Struggles with Python Paths</h3>
 
 <p>One of the deceptively difficult things I've found about Python is its handling of paths and imports. Specifically, you won't run into issues if everything you're trying to import is in a subdirectory compared to your Python file, but once you try to import something out of a sister directory, things can get hairy.</p>
-Imagine you have a file structure like this:
+Imagine you have a file structure like this:</p>
 
 <div class='code'>
-    parent
-    \ services
-    \\ service.py
-    \ logic
-    \\ logic.py
-    \ app.py
+parent
+\ services
+\\ service.py
+\ logic
+\\ logic.py
+\ app.py
 </div>
 
 <p>In app.py, you won't have any trouble importing service from services or logic from logic. However, if you want to use logic.py in your services.py file, can you do that?</p>
@@ -25,24 +26,24 @@ Imagine you have a file structure like this:
 <p>Let's say services.py looks like this:</p>
 
 <div class='code'>
-    from logic import logic
+from logic import logic
 
-    def service_1():
-        if logic.logic_bit()==True:
-            return "Yep that's true"
-        return "Nope not true"
+def service_1():
+    if logic.logic_bit()==True:
+        return "Yep that's true"
+    return "Nope not true"
 </div>
 
 <p>and app.py looks like this:</p>
 
 <div class='code'>
-    from services import service
-    
-    def main():
-        print(service.service_1())
-    
-    if __name__ == "__main__":
-        main()
+from services import service
+
+def main():
+    print(service.service_1())
+
+if __name__ == "__main__":
+    main()
 </div>
 	
 <p>if you run app.py, you won't have any problems because the root path is /parent, so Python can handle the import of logic in services because /logic is a child of /parent. If you try to run service_1 directly, though, the Python root path will be down in /parent/services, and it will look for a /parent/services/logic directory, which doesn't exist.</p>
@@ -50,7 +51,7 @@ Imagine you have a file structure like this:
 <p>You might think that you can get around this by specifiying the parent directory in the import like this:</p>
 
 <div class='code'>
-    from parent.logic import logic
+from parent.logic import logic
 </div>
 
 <p>but you'll find that that doesn't work because Python will try to find /parent/services/parent/logic, which is obviously problematic.</p>
@@ -58,28 +59,28 @@ Imagine you have a file structure like this:
 <p>Or maybe you want to try getting around this by doing a relative import like this:</p>
 
 <div class='code'>
-    from ..logic import logic
+from ..logic import logic
 </div>
 
 <p>But that will throw an error ("attempted relative import beyond top-level package") because you're trying to go above the Python root path, and Python doesn't like that.</p>
 
-<p>This seems pretty straightforward in these examples, and it is, in a way, but as your file structure gets more complex, it's easy to lose sight of who's importing from where, and sometimes, you just need to import across sibling directories. Stack Overflow offers several possible solutions, ranging from the elegant and sort of complex (render all your files as packages and import them in your env) to the hacky but straightforward (jam the parent directory into your path and describe imports from the root). I have found the hacky and straightforward approach to the most effective, and it looks like this:</p>
+<p>This seems pretty straightforward in these examples, and it is, in a way, but as your file structure gets more complex, it's easy to lose sight of who's importing from where, and sometimes, you just need to import across sibling directories. Stack Overflow offers several possible solutions, ranging from the elegant and sort of complex (render all your files as packages and import them in your env) to the hacky but straightforward (jam the parent directory into your path and describe imports from the root). I have found the hacky and straightforward approach to be the most effective, and it looks like this:</p>
 
 <div class='code'>
-    import os
-    import sys
-    folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    sys.path.insert(0, folder)
+import os
+import sys
+folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, folder)
 </div>
 
 <p>Add that to your main app file and any other files where you might run Python directly and need something from a sibling directory. So in service.py, this will run: </p>
 
 <div class='code'>
-    import os
-    import sys
-    folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    sys.path.insert(0, folder)
-    from logic import logic
+import os
+import sys
+folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, folder)
+from logic import logic
 </div>
 
 <p>This works because you are adding the top level directory to the Python path, so when you try to import logic, Python will look for /parent/logic even though you're running it in /services.</p>
@@ -87,8 +88,8 @@ Imagine you have a file structure like this:
 <p>This all works pretty well, and I felt like I had a good handle on it, but then I ran into something unexpected: benign linter errors. I'm using VS Code as my editor, which I like a lot, and I'm using pylint as my linter, which is usually fine. However, when working on this site, I found that all my imports were getting the dreaded red underline and this message:</p>
 
 <div class='code'>
-    Unable to import 'abc.xyz' [pylint(import-error)]
-    No quick fixes available
+Unable to import 'abc.xyz' [pylint(import-error)]
+No quick fixes available
 </div>
 
 <p>I had copied the basic infrastructure from another site of mine, so I knew my path setup was correct. I double checked just to be sure, and then, even though my files looked like they had been sitting in the blood elevator in The Shining, I ran my app. It ran fine.</p>
@@ -102,10 +103,10 @@ Imagine you have a file structure like this:
 <p>Finally, I realized it may have all been my fault all along. My file structure has one overarching folder for this whole project, which contains the main site files, my .venv folder, and some requirements files:</>
 
 <div class='code'>
-    badgettingbetter
-    \ .venv
-    \ badgettingbetter (main site files)
-    \ requirements.txt
+badgettingbetter
+\ .venv
+\ badgettingbetter (main site files)
+\ requirements.txt
 </div>
 
 <p>I had been opening the the main site files folder in VS Code, since that was most directly where I wanted to work. I tried opening the parent badgettingbetter folder, and voila. Pylint errors resolved.</p>

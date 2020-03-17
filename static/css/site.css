@@ -1,16 +1,18 @@
 body {
-    font-family: "Courier New";
+    font-family: "Georgia", "Cambria", "Times New Roman", "Times", "serif";
     margin-left: 15%;
     margin-right: 15%;
     background-color: #f9f1f1;
 }
 
 p.header {
+	font-family: "Courier New";
 	white-space: pre-wrap;
 	text-align: center;
 }
 
 .navbar {
+	font-family: "Courier New";
 	text-align: center;
 }
 
@@ -42,14 +44,25 @@ a:visited {
 }
 
 .code {
-	white-space: pre-wrap;
+	font-family: 'Courier New';
+	display: block;
+	white-space: pre;
+	overflow: auto;
+	box-sizing: border-box;
+	padding-left: 20px;
+	padding-right: 20px;
 	background-color: #E0E0E0;
-	padding-bottom:12px;
-	vertical-align: middle;
+	padding-bottom:14px;
 }
 
 footer {
-	height: 200px;
+	font-family: "Courier New";
+	height: 150px;
+	margin-top: 30px;
 	white-space: pre-wrap;
 	text-align: center;
+}
+
+h3.post-title {
+	font-family: "Courier New";
 }
